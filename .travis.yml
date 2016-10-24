@@ -141,7 +141,7 @@ install:
   - pip install -r $main_path/requirements.txt -e .
   - python -c "import openslide;print openslide.__version__"
   - npm install
-  - pip install girder-client
+  - pip install -U girder-client
   - BABEL_ENV=cover girder-install web --plugins=large_image,worker,jobs --dev
   - girder-cli --api-key $GIRDER_API_KEY --api-url https://data.kitware.com/api/v1 upload 580e34768d777f10f26ed5e4 clients/web/static/built
 
