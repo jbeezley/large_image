@@ -17,6 +17,10 @@ dist: trusty
 compiler:
   - gcc
 
+env:
+  global:
+    - secure: "JhafeEylid0HWLgZlPG7MhIXf4M8WBB2LjQm/MKE8Kk7jHChVy/v9/TNJx26K50S4LGF77sCt4UON8BmErlsQZdWMzXKt9RQE5f8DZ1ImiV3Hsu/c5/CqTddPNgNNnRygRb/rphE0IUHECmQ74epbWu3+I7YhhP7dWQNWPwWAkcbkcCQk01ippfqt91yUSqxm/sFQfb11eQY/37hR655nVCuK/pCIAjpDsocV7wvQKOctLaBvwqF+9nqDe1DuXHmmhz0qeqZ7ODuQ5tzP+5qc3hR5zu8KEWzGvG9QAHKlrCC3Ukasl3Kv/KyLY8wwIRC7sukZ7g1r22NReuinq3odw/NaEFZ+cJ3LsuwxfYqxTf2i1Ibf1Z7GdGAcoHGUCSXjlmE+MdvxyrvzVYRxXnlkoxGbE1dR4MdqE6rf+ZBwcjnMwjNVB9hIX3jmjC4iu1T8tYuaVbxzLfKP8K0zfYfLCem1zdR0tNahcevdFbmKozfNu755zRZ2CagCHB+6MsHt39aiqJS1M0IwX2i6r3zujjy92zrkuvZ9Yu1+npjF6retCtRQedrTzQwztUJGeS5DuTojCA5iaMoeOL4XqFBQMGejYjT33FCnhd17Fd3rlgdxqdgLUO9pEda0YwxdODfIiOGUJTawKSEBNcuG3UXW5dfRqJ4vPxyo8mC6bWmLCI="
+
 addons:
   apt:
     packages:
@@ -137,7 +141,9 @@ install:
   - pip install -r $main_path/requirements.txt -e .
   - python -c "import openslide;print openslide.__version__"
   - npm install
+  - pip install girder-client
   - BABEL_ENV=cover girder-install web --plugins=large_image,worker,jobs --dev
+  - girder-cli --api-key $GIRDER_API_KEY --api-url https://data.kitware.com/api/v1 upload 580e34768d777f10f26ed5e4 clients/web/static/built
 
 script:
   - cd $girder_worker_path
